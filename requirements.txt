@@ -1,2 +1,5 @@
-discord
-os
+discord;
+os;
+youtubesearchpython;
+pafy;
+python-vlc;
