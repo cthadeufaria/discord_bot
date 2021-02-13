@@ -1,4 +1,4 @@
-import discord, os, pafy, vlc
+import discord, os, pafy, vlc, youtube_dl
 from discord.ext import commands
 from youtubesearchpython.__future__ import *
 
@@ -11,12 +11,38 @@ boludos = {
 messages = {
     'hola' : [
         '¡Hola! ¿Qué tal, {}?', 
-        'No hablo con boludos, manito.'
+        'No hablo con boludos, manito.',
+        'Entra al canal de voz para escucharme, manito.'
     ],
     'esp' : 
-        '¡No entiendo, puto! Solo hablo español.'
+        '¡No entiendo, puto! Solo hablo español.',
 }
 cucaracha = 'https://www.youtube.com/watch?v=jp9vFhyhNd8'
+
+
+@bot.command()
+async def hola(ctx):
+    user = ctx.message.author
+    channel = ctx.message.channel
+    
+    voice_channel = user.voice.channel
+    voice_client = await voice_channel.connect()
+    
+    with youtube_dl.YoutubeDL() as ydl:
+        song_info = ydl.extract_info(cucaracha, download=False)
+    
+    voice_client.play(
+        discord.FFmpegPCMAudio(song_info["formats"][0]["url"]), after=lambda e: print('done', e)
+    )
+
+
+    @bot.command()
+    async def para(ctx):
+        voice_client.stop()
+
+
+
+
 
 # bot events:
     # @bot.event
@@ -40,14 +66,5 @@ cucaracha = 'https://www.youtube.com/watch?v=jp9vFhyhNd8'
     #         await message.channel.send(
     #             messages['hola'][0].format(str(message.author))
     #         )
-
-@bot.command()
-async def play(ctx, url):
-    await ctx.send(url)
-
-@bot.command()
-async def teste(ctx):
-    await ctx.send('ok')
-
 
 bot.run(os.getenv('discord_bot_token'))
