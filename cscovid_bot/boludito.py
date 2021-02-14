@@ -17,20 +17,43 @@ messages = {
     ],
     'esp' : 
         '¡No entiendo, puto! Solo hablo español.',
-    'erro' :
-        ['No recordaré esta canción. Fumé mucha marihuana.']
+    'erro' : [
+        'No recordaré esta canción. Fumé mucha marihuana.',
+        'Ya estoy tocando una canción, puto.'
+    ]
 }
 cucaracha = 'https://www.youtube.com/watch?v=jp9vFhyhNd8'
+FFMPEG_OPTIONS = {
+    'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 4', 
+    'options': '-vn'
+}
+ydl_opts = {
+    'format': 'bestaudio/best',
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192',
+    }],
+    'outtmpl': '%(title)s.%(etx)s',
+    'quiet': False
+}
 
 
-def play_music(voice_client):
+def play_music(voice_client, search_str=None, key=True):
     if voice_client.is_playing() == True:
         pass
     else:
-        with youtube_dl.YoutubeDL() as ydl:
-            song_info = ydl.extract_info(cucaracha, download=False)
+        if key == True:
+            song_url = cucaracha
+        else:
+            # pesquisar aqui url do vídeo usando search_str
+            video_search = VideosSearch(search_str, limit=2)
+            song_url = video_search.result()['result'][0]['link']
+            print(song_url)
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            song_info = ydl.extract_info(song_url, download=False)
         voice_client.play(
-            discord.FFmpegPCMAudio(song_info["formats"][0]["url"]), after = lambda e: print('done')
+            discord.FFmpegPCMAudio(song_info["formats"][0]["url"], **FFMPEG_OPTIONS), after = lambda e: print('done')
         )
 
 
@@ -60,6 +83,8 @@ async def clean_conn_voice(ctx, bot):
 @bot.command()
 async def hola(ctx):
     voice_client = await clean_conn_voice(ctx, bot)
+    user = ctx.message.author
+    channel = ctx.message.channel
     if voice_client != None:
         if boludos[str(user)][1] == 1:
             await channel.send(messages['hola'][1])
@@ -78,28 +103,18 @@ async def para(ctx):
 
 
 @bot.command()
-async def tocar(ctx, *args):
+async def tocar(ctx, *args):    
     search_str = ' '.join(args)
+    voice_client = await clean_conn_voice(ctx, bot)
     user = ctx.message.author
     channel = ctx.message.channel
-    voice_channel = user.voice.channel
-    voice_client = await voice_channel.connect()
-    
-    if user in boludos.keys():
-        await channel.send(messages['hola'][1])
-    elif search_str == None:
-        await channel.send(messages['hola'][1])
+    if voice_client != None:
+        if boludos[str(user)][1] == 1:
+            await channel.send(messages['hola'][1])
+        else:
+            play_music(voice_client, search_str, False)
     else:
-        video_search = VideosSearch(search_str, limit=2)
-        # song_name = 
-        # song_url = 
-        print(videosSearch.result())
-        with youtube_dl.YoutubeDL() as ydl:
-            song_info = ydl.extract_info(cucaracha, download=False)
-        voice_client.play(
-            discord.FFmpegPCMAudio(song_info["formats"][0]["url"]), after=lambda e: print('done', e)
-        )
-        # await channel.send('Tocando ' + song_name)
+        pass
 
 
 
