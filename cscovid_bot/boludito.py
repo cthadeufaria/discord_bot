@@ -2,7 +2,7 @@ import discord, os, pafy, vlc, youtube_dl
 from discord.ext import commands
 from youtubesearchpython import VideosSearch
 
-bot = commands.Bot(command_prefix='$')
+bot = commands.Bot(command_prefix='$', help_command=None)
 
 boludos = {
     'DonHabraone#2093' : ['Victor', 1],
@@ -86,6 +86,15 @@ async def clean_conn_voice(ctx, bot):
         await channel.send(messages['hola'][2])
         voice_client = None
     return voice_client
+
+
+@bot.command()
+async def ayuda(ctx):
+    emb = discord.Embed(title='ayuda', description='¡Ayuda, manitos!')
+    emb.add_field(name='hola', value='¡Hola, manitos!', inline=False)
+    emb.add_field(name='tocar <str>', value='Toca música do Youtube.', inline=False)
+    emb.add_field(name='para', value='Para de tocar música e disconecta do canal de áudio.', inline=False)
+    await ctx.message.channel.send(embed=emb)
 
 
 @bot.command()
