@@ -1,4 +1,4 @@
-import discord, os, pafy, vlc, youtube_dl
+import discord, os, youtube_dl
 from discord.ext import commands
 from youtubesearchpython import VideosSearch
 
@@ -6,31 +6,33 @@ bot = commands.Bot(command_prefix='$', help_command=None)
 
 boludos = {
     'DonHabraone#2093' : ['Victor', 1],
-    'J Cresta#1514' : ['Tonecito', 0],
+    'J Cresta#1514' : ['Tonê', 0],
     'carlosfaria#3773' : ['Charles', 0]
 }
+
 messages = {
     'hola' : [
         '¡Hola! ¿Qué tal, {}?', 
         'No hablo con boludos, manito.',
         'Entra al canal de voz para escucharme, manito.'
     ],
-    'esp' : [
-        '¡No entiendo, puto! Solo hablo español.'
-    ],
     'erro' : [
         'No recordaré esta canción. Fumé mucha marihuana.',
-        'Ya estoy tocando una canción, puto.'
+        'Ya estoy tocando una canción, puto.',
+        '¡No entiendo, cabrón! Solo hablo español.'
     ],
     'musica' : [
         'Tocando {}.'
     ]
 }
+
 cucaracha = ['https://www.youtube.com/watch?v=jp9vFhyhNd8', 'La Cucaracha']
+
 FFMPEG_OPTIONS = {
     'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 4', 
     'options': '-vn'
 }
+
 ydl_opts = {
     'format': 'bestaudio/best',
     'postprocessors': [{
@@ -40,6 +42,20 @@ ydl_opts = {
     }],
     'outtmpl': '%(title)s.%(etx)s',
     'quiet': False
+}
+
+ayuda_dict = {
+    'add_file' : {
+        'ayuda' : 'Lista comandos',
+        'hola' : '¡Hola, manitos!',
+        'tocar <nome da música>' : 'Toca música do Youtube.',
+        'para' : 'Para de tocar música e disconecta do canal de áudio.'
+    },
+    'title' : {
+        'ayuda' : [
+            '¡Ayuda, manitos!', '''LISTA DE COMANDOS DO BOLUDITO. Executar com "$<nome do comando>".'''
+        ]
+    }
 }
 
 
@@ -90,10 +106,9 @@ async def clean_conn_voice(ctx, bot):
 
 @bot.command()
 async def ayuda(ctx):
-    emb = discord.Embed(title='ayuda', description='¡Ayuda, manitos!')
-    emb.add_field(name='hola', value='¡Hola, manitos!', inline=False)
-    emb.add_field(name='tocar <str>', value='Toca música do Youtube.', inline=False)
-    emb.add_field(name='para', value='Para de tocar música e disconecta do canal de áudio.', inline=False)
+    emb = discord.Embed(title=ayuda_dict['title']['ayuda'][0], description=ayuda_dict['title']['ayuda'][1])
+    for cmd in ayuda_dict['add_file'].keys():
+        emb.add_field(name=cmd, value=ayuda_dict['add_file'][cmd], inline=False)
     await ctx.message.channel.send(embed=emb)
 
 
