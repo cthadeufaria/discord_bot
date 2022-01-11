@@ -1,84 +1,34 @@
 import discord, os, youtube_dl
 from discord.ext import commands
 from youtubesearchpython import VideosSearch
+from parameters import Parameters
+# import python-vlc
+# import pafy
 
+p = Parameters()
 bot = commands.Bot(command_prefix='$', help_command=None)
-
-boludos = {
-    'DonHabraone#2093' : ['Victor', 1],
-    'J Cresta#1514' : ['Tonê', 0],
-    'carlosfaria#3773' : ['Charles', 0]
-}
-
-messages = {
-    'hola' : [
-        '¡Hola! ¿Qué tal, {}?', 
-        'No hablo con boludos, manito.',
-        'Entra al canal de voz para escucharme, manito.'
-    ],
-    'erro' : [
-        'No recordaré esta canción. Fumé mucha marihuana.',
-        'Ya estoy tocando una canción, puto.',
-        '¡No entiendo, cabrón! Solo hablo español.'
-    ],
-    'musica' : [
-        'Tocando {}.'
-    ]
-}
-
-cucaracha = ['https://www.youtube.com/watch?v=jp9vFhyhNd8', 'La Cucaracha']
-
-FFMPEG_OPTIONS = {
-    'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 4', 
-    'options': '-vn'
-}
-
-ydl_opts = {
-    'format': 'bestaudio/best',
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
-    'outtmpl': '%(title)s.%(etx)s',
-    'quiet': False
-}
-
-ayuda_dict = {
-    'add_file' : {
-        'ayuda' : 'Lista comandos',
-        'hola' : '¡Hola, manitos!',
-        'tocar <nome da música>' : 'Toca música do Youtube.',
-        'para' : 'Para de tocar música e disconecta do canal de áudio.'
-    },
-    'title' : {
-        'ayuda' : [
-            '¡Ayuda, manitos!', '''LISTA DE COMANDOS DO BOLUDITO. Executar com "$<nome do comando>".'''
-        ]
-    }
-}
 
 
 async def play_music(ctx, voice_client, search_str=None, key=True):
     channel = ctx.message.channel
     if voice_client.is_playing() == True:
         if key == False:
-            await channel.send(messages['erro'][1])
+            await channel.send(p.messages['erro'][1])
         pass
     else:
         if key == True:
-            song_url = cucaracha[0]
-            titulo = cucaracha[1]
+            song_url = p.cucaracha[0]
+            titulo = p.cucaracha[1]
         else:
             video_search = VideosSearch(search_str, limit=2)
             song_url = video_search.result()['result'][0]['link']
             titulo = video_search.result()['result'][0]['title']
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        with youtube_dl.YoutubeDL(p.ydl_opts) as ydl:
             song_info = ydl.extract_info(song_url, download=False)
         voice_client.play(
-            discord.FFmpegPCMAudio(song_info["formats"][0]["url"], **FFMPEG_OPTIONS), after = lambda e: print('done')
+            discord.FFmpegPCMAudio(song_info["formats"][0]["url"], **p.FFMPEG_OPTIONS), after = lambda e: print('done')
         )
-        await channel.send(messages['musica'][0].format(titulo))
+        await channel.send(p.messages['musica'][0].format(titulo))
 
 
 async def clean_conn_voice(ctx, bot):
@@ -99,16 +49,16 @@ async def clean_conn_voice(ctx, bot):
         else:
             pass
     except AttributeError:
-        await channel.send(messages['hola'][2])
+        await channel.send(p.messages['hola'][2])
         voice_client = None
     return voice_client
 
 
 @bot.command()
 async def ayuda(ctx):
-    emb = discord.Embed(title=ayuda_dict['title']['ayuda'][0], description=ayuda_dict['title']['ayuda'][1])
-    for cmd in ayuda_dict['add_file'].keys():
-        emb.add_field(name=cmd, value=ayuda_dict['add_file'][cmd], inline=False)
+    emb = discord.Embed(title=p.ayuda_dict['title']['ayuda'][0], description=p.ayuda_dict['title']['ayuda'][1])
+    for cmd in p.ayuda_dict['add_file'].keys():
+        emb.add_field(name=cmd, value=p.ayuda_dict['add_file'][cmd], inline=False)
     await ctx.message.channel.send(embed=emb)
 
 
@@ -118,10 +68,10 @@ async def hola(ctx):
     user = ctx.message.author
     channel = ctx.message.channel
     if voice_client != None:
-        if boludos[str(user)][1] == 1:
-            await channel.send(messages['hola'][1])
+        if p.boludos[str(user)][1] == 1:
+            await channel.send(p.messages['hola'][1])
         else:
-            await channel.send(messages['hola'][0].format(str(user)))
+            await channel.send(p.messages['hola'][0].format(str(user)))
             await play_music(ctx, voice_client)
     else:
         pass
@@ -141,15 +91,12 @@ async def tocar(ctx, *args):
     user = ctx.message.author
     channel = ctx.message.channel
     if voice_client != None:
-        if boludos[str(user)][1] == 1:
-            await channel.send(messages['hola'][1])
+        if p.boludos[str(user)][1] == 1:
+            await channel.send(p.messages['hola'][1])
         else:
             await play_music(ctx, voice_client, search_str, False)
     else:
         pass
-
-
-
 
 
 # bot events:
@@ -175,4 +122,5 @@ async def tocar(ctx, *args):
     #             messages['hola'][0].format(str(message.author))
     #         )
 
-bot.run(os.getenv('discord_bot_token'))
+if __name__ == '__main__':
+    bot.run(os.getenv('DISCORD_BOT_TOKEN'))
