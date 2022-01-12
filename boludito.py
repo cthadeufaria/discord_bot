@@ -122,5 +122,5 @@ async def tocar(ctx, *args):
     #             messages['hola'][0].format(str(message.author))
     #         )
 
-if __name__ == '__main__':
-    bot.run(os.getenv('DISCORD_BOT_TOKEN'))
+
+bot.run(os.getenv('DISCORD_BOT_TOKEN'))
