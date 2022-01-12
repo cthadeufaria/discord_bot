@@ -1,0 +1,1 @@
+worker: python3 cscovid_bot/boludito.py
