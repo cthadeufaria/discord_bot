@@ -1,1 +1,1 @@
-worker: python3 cscovid_bot/boludito.py
+worker: python cscovid_bot/boludito.py
