@@ -1,1 +1,1 @@
-worker: python3 boludito.py
+worker: python boludito.py
