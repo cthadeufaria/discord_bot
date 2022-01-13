@@ -4,6 +4,11 @@ from youtubesearchpython import VideosSearch
 from parameters import Parameters
 # import python-vlc
 # import pafy
+import ctypes.util as u
+
+a = u.find_library('opus')
+discord.opus.load_opus(a)
+print('Opus library loaded = ' + str(discord.opus.is_loaded()))
 
 p = Parameters()
 bot = commands.Bot(command_prefix='$', help_command=None)
