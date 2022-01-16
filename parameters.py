@@ -2,7 +2,7 @@ class Parameters:
 
     def __init__(self):
         self.boludos = {
-            'DonHabraone#2093' : ['Victor', 1],
+            'DonHabraone#2093' : ['Victor', 0],
             'J Cresta#1514' : ['Tonê', 0],
             'carlosfaria#3773' : ['Charles', 0]
         }
