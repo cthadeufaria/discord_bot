@@ -102,7 +102,6 @@ async def tocar(ctx, *args):
             await play_music(ctx, voice_client, search_str, False)
     else:
         pass
-    await para()
 
 
 
