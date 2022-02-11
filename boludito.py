@@ -36,7 +36,7 @@ async def play_music(ctx, voice_client, search_str=None, key=True):
         await channel.send(p.messages['musica'][0].format(titulo))
 
 
-async def clean_conn_voice(ctx, bot):
+async def clean_conn_voice(ctx, bot, clean = 0):
     conn = 0
     user = ctx.message.author
     try:
@@ -102,6 +102,7 @@ async def tocar(ctx, *args):
             await play_music(ctx, voice_client, search_str, False)
     else:
         pass
+    await para()
 
 
 
