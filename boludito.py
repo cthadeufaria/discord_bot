@@ -1,3 +1,4 @@
+from re import search
 import discord, os, youtube_dl
 from discord.ext import commands
 from youtubesearchpython import VideosSearch
@@ -59,6 +60,21 @@ async def clean_conn_voice(ctx, bot, clean = 0):
     return voice_client
 
 
+async def startGame(ctx, bot):
+    pass
+
+
+# async def start_def(ctx, bot):
+#     search_str = ' '.join(args)
+#     user = ctx.message.author
+#     channel = ctx.message.channel
+#     if voice_client != None:
+#         if p.boludos[str(user)][1] == 1:
+#             await channel.send(p.messages['hola'][1])
+#         else:
+#             await play_music(ctx, voice_client, search_str, False)
+
+
 @bot.command()
 async def ayuda(ctx):
     emb = discord.Embed(title=p.ayuda_dict['title']['ayuda'][0], description=p.ayuda_dict['title']['ayuda'][1])
@@ -103,6 +119,17 @@ async def tocar(ctx, *args):
     else:
         pass
 
+
+@bot.command()
+async def blackjack(ctx, *args):
+    user = ctx.message.author
+    channel = ctx.message.channel
+    if channel != None:
+        if p.boludos[str(user)][1] == 1:
+            await channel.send(p.messages['hola'][1])
+        else:
+            await channel.send(p.messages['acoes'][0])
+            await startGame(ctx)
 
 
 bot.run(os.getenv('DISCORD_BOT_TOKEN'))

@@ -20,6 +20,9 @@ class Parameters:
             ],
             'musica' : [
                 'Tocando {}.'
+            ],
+            'acoes': [
+                'Vamos a jugar, chuiquito!'
             ]
         }
 
