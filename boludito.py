@@ -189,11 +189,13 @@ async def hit_or_stand(deck, hand, channel):
     while True:
         # x = input('would you like to hit or stand? Enter "h" or "s" ')
         x = await get_message(channel, p.messages['blackjack'][16])
-        if x == 'h':
+        # if x == 'h':
+        if x == 'c':
             await hit(deck, hand)
             await channel.send(p.messages['blackjack'][14])
             print(p.messages['blackjack'][14])
-        elif x == 's':
+        # elif x == 's':
+        elif x == 'p':
             # print('player stands. Dealer is playing')
             await channel.send(p.messages['blackjack'][3])
             print(p.messages['blackjack'][3])
@@ -211,7 +213,8 @@ async def hit_or_stand(deck, hand, channel):
 async def ask_new_game(channel, message):
     while True:
         new_game = await get_message(channel, message)
-        if new_game == 'y':
+        # if new_game == 'y':
+        if new_game == 's':
             playing = True
             break
         elif new_game == 'n':
@@ -247,7 +250,8 @@ async def play_game(channel, playing):
         dealer_hand.add_card(deck.deal())
         
         # Set up the Player's chips
-        if new_game != 'y':
+        # if new_game != 'y':
+        if new_game != 's':
             player_chips = bj.Chips()
 
         # Prompt the Player for their bet
