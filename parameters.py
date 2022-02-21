@@ -21,11 +21,27 @@ class Parameters:
             'musica' : [
                 'Tocando {}.'
             ],
-            'acoes': [
-                'Vamos a jugar, chuiquito!'
+            'blackjack': [
+                'Vamos a jugar blackjack, chiquito!',
+                "\nPlayers winnings stand at ",
+                'Thanks for playing!',
+                'player stands. Dealer is playing',
+                'Sorry, please enter a valid response',
+                'Sorry, a bet must be an integer',
+                "Sorry, your bet cannot exceed ",
+                "\nDealer's Hand",
+                "<card hidden>",
+                "Player busts!",
+                "Player wins!",
+                "Dealer busts!",
+                "Dealer wins!",
+                "Dealer and Player tie! It's a push.",
+                'Hitting deck!',
+                "Would you like to play again? Enter 'y' or 'n'",
+                'Would you like to hit or stand? Enter "h" or "s" ',
+                'How many chips would you like to bet? '
             ]
         }
-
         self.cucaracha = ['https://www.youtube.com/watch?v=jp9vFhyhNd8', 'La Cucaracha']
 
         self.FFMPEG_OPTIONS = {

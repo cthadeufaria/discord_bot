@@ -1,4 +1,6 @@
 # discord_bot
+3. push to heroku
+    a. update dynos
 
 # bot events:
     # @bot.event

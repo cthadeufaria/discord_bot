@@ -1,9 +1,12 @@
 import random
 
-suits = ('Hearts', 'Diamons', 'Spades', 'Clubs')
-ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
-values = {'Two' : 2, 'Three' : 3, 'Four' : 4, 'Five' : 5, 'Six' : 6, 'Seven' : 7, 'Eight' : 8, 'Nine' : 9, 'Ten' : 10, 'Jack' : 10, 'Queen' : 10, 'King' : 10, 'Ace' : 11}
-playing = True
+# suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
+# ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
+# values = {'Two' : 2, 'Three' : 3, 'Four' : 4, 'Five' : 5, 'Six' : 6, 'Seven' : 7, 'Eight' : 8, 'Nine' : 9, 'Ten' : 10, 'Jack' : 10, 'Queen' : 10, 'King' : 10, 'Ace' : 11}
+suits = ('Copas', 'Ouros', 'Espadas', 'Paus')
+ranks = ('Dois', 'Três', 'Quatro', 'Cinco', 'Seis', 'Sete', 'Oito', 'Nove', 'Dez', 'Valete', 'Dama', 'Rei', 'Ás')
+values = {'Dois' : 2, 'Três' : 3, 'Quatro' : 4, 'Cinco' : 5, 'Seis' : 6, 'Sete' : 7, 'Oito' : 8, 'Nove' : 9, 'Dez' : 10, 'Valete' : 10, 'Dama' : 10, 'Rei' : 10, 'Ás' : 11}
+
 
 class Card:
 
@@ -71,6 +74,9 @@ class Chips:
     def __init__(self):
         self.total = 100
         self.bet = 0
+
+    def __str__(self):
+        return 'Total chips: ' + str(self.total) + '\nBet chips: ' + str(self.bet)
     
     def win_bet(self):
         self.total += self.bet
@@ -78,32 +84,3 @@ class Chips:
     def lose_bet(self):
         self.total -= self.bet
 
-def take_bet(chips):
-    while True:
-        try:
-            chips.bet = int(input('How many chips would you like to bet? '))
-        except ValueError:
-            print('Sorry, a bet must be an integer')
-        else:
-            if chips.bet > chips.total:
-                print("sorry, your bet cannot exceed", chips.total)
-            else:
-                break
-
-def hit(deck, hand):
-    hand.add_card(deck.deal())
-    hand.adjust_for_ace()
-
-def hit_or_stand(deck, hand):
-    global playing #controls while loop
-    while True:
-        x = input('would you like to hit or stand? Enter "h" or "s" ')        
-        if x[0].lower == 'h':
-            hit(deck, hand)
-        elif x[0] == 's':
-            print('player stands. Dealer is playing')
-            playing = False        
-        else:
-            print('Sorry, please enter a valid response')
-            continue
-        break
