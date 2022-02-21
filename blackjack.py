@@ -15,7 +15,7 @@ class Card:
         self.rank = rank
 
     def __str__(self):
-        return self.rank + ' of ' + self.suit
+        return self.rank + ' de ' + self.suit
 
 
 class Deck:

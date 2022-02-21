@@ -37,7 +37,12 @@ def compose_message(message, separator, strList):
 
     return message
 
-        
+
+def hit(deck, hand):
+    hand.add_card(deck.deal())
+    hand.adjust_for_ace()
+
+
 async def play_music(channel, voice_client, search_str=None, key=True):
     # channel = ctx.message.channel
     if voice_client.is_playing() == True:
@@ -176,11 +181,6 @@ async def take_bet(chips, channel):
                 print(p.messages['blackjack'][6], chips.total)
             else:
                 break
-
-
-async def hit(deck, hand):
-    hand.add_card(deck.deal())
-    hand.adjust_for_ace()
 
 
 async def hit_or_stand(deck, hand, channel):

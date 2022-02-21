@@ -38,7 +38,7 @@ class Parameters:
                 "Jogador vence!",
                 "Dealer estoura!",
                 "Dealer vence!",
-                "Dealer Jogardor empatam!",
+                "Dealer e Jogardor empatam!",
                 'Distribuindo cartas!',
                 "Quer jugar de novo? Digite 's' or 'n'",
                 'Quer comprar outra carta ou parar? Enter "c" or "p" ',
