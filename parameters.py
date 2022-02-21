@@ -1,4 +1,4 @@
-from boludito import blackjack
+# from boludito import blackjack
 
 
 class Parameters:
@@ -23,7 +23,8 @@ class Parameters:
             ],
             'musica' : [
                 'Tocando {}.'
-            ], 'blackjack' : [
+            ], 
+            'blackjack' : [
                 'Vamos a jugar blackjack, chiquito!',
                 "\nOs ganhos dos jogadores ficam em ",
                 'Gracias por jugar!',

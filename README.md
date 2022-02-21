@@ -1,6 +1,5 @@
 # discord_bot
-3. push to heroku
-    a. update dynos
+4. Update game rules: https://jornaldebrasilia.com.br/entretenimento/jogo-de-cartas-21-um-breve-guia-sobre-o-famoso-blackjack/
 
 # bot events:
     # @bot.event
