@@ -115,7 +115,7 @@ async def show_some(player,dealer,channel):
     await send_message(channel, p.messages['blackjack'][7])
     await send_message(channel, p.messages['blackjack'][8])
     await send_message(channel, ' ' + str(dealer.cards[1]))
-    await send_message(channel, compose_message("\nPlayer's Hand: ", '\n', player.cards))
+    await send_message(channel, compose_message("\nMao do Jogador: ", '\n', player.cards))
 
 
 async def show_all(player,dealer,channel):
@@ -277,7 +277,7 @@ async def play_game(channel, playing, new_game='n'):
         if player_hand.value <= 21:
             
             while dealer_hand.value <17:
-                bj.hit(deck, dealer_hand)
+                hit(deck, dealer_hand)
         
             # Show all cards
             await show_all(player_hand, dealer_hand, channel)
