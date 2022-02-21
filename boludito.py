@@ -231,7 +231,7 @@ async def ask_new_game(channel, message):
 
 
 #NOW FOR THE GAME
-async def play_game(channel, playing):
+async def play_game(channel, playing, new_game='n'):
     while True:
         # Print an opening statement
         await channel.send(p.messages['blackjack'][0])
