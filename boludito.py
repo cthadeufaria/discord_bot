@@ -120,7 +120,7 @@ async def show_some(player,dealer,channel):
     await send_message(channel, p.messages['blackjack'][7])
     await send_message(channel, p.messages['blackjack'][8])
     await send_message(channel, ' ' + str(dealer.cards[1]))
-    await send_message(channel, compose_message("\nMao do Jogador: ", '\n', player.cards))
+    await send_message(channel, compose_message("\nMão do Jogador: ", '\n', player.cards))
 
 
 async def show_all(player,dealer,channel):
@@ -128,10 +128,10 @@ async def show_all(player,dealer,channel):
     # print("Dealer's Hand =",dealer.value)
     # print("\nPlayer's Hand: ", *player.cards, sep= '\n')
     # print("Player's Hand = ", player.value)
-    await send_message(channel, compose_message("\nDealer's Hand: ", '\n', dealer.cards))
-    await send_message(channel, compose_message("Dealer's Hand =", ' ', dealer.value))
-    await send_message(channel, compose_message("\nPlayer's Hand: ", '\n', player.cards))
-    await send_message(channel, compose_message("Player's Hand =", ' ', player.value))
+    await send_message(channel, compose_message("\nMão do Dealer: ", '\n', dealer.cards))
+    await send_message(channel, compose_message("Mão do Dealer =", ' ', dealer.value))
+    await send_message(channel, compose_message("\nMão do Jogador: ", '\n', player.cards))
+    await send_message(channel, compose_message("Mão do Jogador =", ' ', player.value))
 
 
 #functions to handle game scenarios#
