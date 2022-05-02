@@ -1,3 +1,6 @@
+# from boludito import blackjack
+
+
 class Parameters:
 
     def __init__(self):
@@ -20,9 +23,48 @@ class Parameters:
             ],
             'musica' : [
                 'Tocando {}.'
+            ], 
+            'blackjack' : [
+                'Vamos a jugar blackjack, chiquito!',
+                "\nOs ganhos dos jogadores ficam em ",
+                'Gracias por jugar!',
+                'Jogador para. Dealer jogando',
+                'Desculpe, digite uma resposta válida',
+                'Desculpe, uma aposta precisa ser um numero inteiro',
+                "Desculpe, sua aposta nao pode exceder ",
+                "\nMao do Dealer",
+                "<carta escondida>",
+                "Jogardor estoura!",
+                "Jogador vence!",
+                "Dealer estoura!",
+                "Dealer vence!",
+                "Dealer e Jogardor empatam!",
+                'Distribuindo cartas!',
+                "Quer jugar de novo? Digite 's' or 'n'",
+                'Quer comprar outra carta ou parar? Enter "c" or "p" ',
+                'Quantas fichas quer apostar? '
             ]
+            # 'blackjack': [
+            #     'Vamos a jugar blackjack, chiquito!',
+            #     "\nPlayers winnings stand at ",
+            #     'Thanks for playing!',
+            #     'player stands. Dealer is playing',
+            #     'Sorry, please enter a valid response',
+            #     'Sorry, a bet must be an integer',
+            #     "Sorry, your bet cannot exceed ",
+            #     "\nDealer's Hand",
+            #     "<card hidden>",
+            #     "Player busts!",
+            #     "Player wins!",
+            #     "Dealer busts!",
+            #     "Dealer wins!",
+            #     "Dealer and Player tie! It's a push.",
+            #     'Hitting deck!',
+            #     "Would you like to play again? Enter 'y' or 'n'",
+            #     'Would you like to hit or stand? Enter "h" or "s" ',
+            #     'How many chips would you like to bet? '
+            # ]
         }
-
         self.cucaracha = ['https://www.youtube.com/watch?v=jp9vFhyhNd8', 'La Cucaracha']
 
         self.FFMPEG_OPTIONS = {
